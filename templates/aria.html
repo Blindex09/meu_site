@@ -1,0 +1,693 @@
+{% extends "base.html" %}
+
+{% block title %}Acessibilidade Digital - WAI-ARIA{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="aria-title">
+    <h1 id="aria-title">WAI-ARIA: Tornando a Web Mais Acessível</h1>
+    <p>WAI-ARIA (Web Accessibility Initiative - Accessible Rich Internet Applications) é um conjunto de atributos que define formas de tornar o conteúdo da web e aplicativos web mais acessíveis para pessoas com deficiências.</p>
+    
+    <blockquote>
+        "ARIA permite que desenvolvedores web transmitam comportamentos de interface e informações estruturais para tecnologias assistivas quando conteúdo nativo não consegue fazê-lo."
+        <footer>— W3C</footer>
+    </blockquote>
+</section>
+
+<section class="section" aria-labelledby="why-aria-title">
+    <h2 id="why-aria-title">Por que precisamos do ARIA?</h2>
+    
+    <div class="card">
+        <h3 class="card-title">Preenchendo as lacunas de acessibilidade</h3>
+        <p>O HTML foi originalmente projetado para documentos, não para aplicativos interativos complexos. ARIA ajuda a preencher essa lacuna, adicionando informações semânticas que as tecnologias assistivas podem usar para fornecer uma melhor experiência ao usuário.</p>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="demo-bad">
+                    <h4 class="demo-bad-title">Sem ARIA</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                                <div style="width: 20px; height: 20px; border: 1px solid #999;"></div>
+                                <span>Opção 1</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 20px; height: 20px; border: 1px solid #999; background-color: #2563eb;"></div>
+                                <span>Opção 2</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <p>Um leitor de tela não identificaria isso como uma caixa de seleção e não saberia qual está marcada.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="demo-good">
+                    <h4 class="demo-good-title">Com ARIA</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;" role="checkbox" aria-checked="false" tabindex="0">
+                                <div style="width: 20px; height: 20px; border: 1px solid #999;"></div>
+                                <span>Opção 1</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div style="display: flex; align-items: center; gap: 10px;" role="checkbox" aria-checked="true" tabindex="0">
+                                <div style="width: 20px; height: 20px; border: 1px solid #999; background-color: #2563eb;"></div>
+                                <span>Opção 2</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <p>Com <code>role="checkbox"</code> e <code>aria-checked</code>, os leitores de tela podem identificar e comunicar o estado.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <p>Quando usar ARIA:</p>
+            <ul>
+                <li>Ao criar componentes personalizados que não possuem equivalentes HTML nativos</li>
+                <li>Quando elementos HTML nativos não fornecem todas as informações necessárias para acessibilidade</li>
+                <li>Para aprimorar widgets interativos complexos (tabs, sliders, menus, etc.)</li>
+                <li>Para comunicar atualizações dinâmicas na página</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="aria-concepts-title">
+    <h2 id="aria-concepts-title">Conceitos Fundamentais do ARIA</h2>
+    
+    <div class="card">
+        <h3 class="card-title">Roles (Funções)</h3>
+        <p>Definem o tipo do elemento ou sua função na página. Elas informam às tecnologias assistivas o que um elemento é ou faz.</p>
+        
+        <div class="table-container">
+            <table>
+                <caption>Exemplos de Roles ARIA comuns</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Role</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>button</td>
+                        <td>Identifica um elemento como botão</td>
+                        <td><code>&lt;div role="button" tabindex="0"&gt;Clique aqui&lt;/div&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td>navigation</td>
+                        <td>Identifica uma seção de navegação</td>
+                        <td><code>&lt;div role="navigation"&gt;...links...&lt;/div&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td>alert</td>
+                        <td>Mensagem importante que requer atenção imediata</td>
+                        <td><code>&lt;div role="alert"&gt;Erro ao enviar formulário!&lt;/div&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td>tablist, tab, tabpanel</td>
+                        <td>Componente de abas</td>
+                        <td><code>&lt;div role="tablist"&gt;&lt;div role="tab"&gt;...&lt;/div&gt;&lt;/div&gt;</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="demo-section">
+            <span class="demo-title">Demonstração: Botão Personalizado</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Sem role</h4>
+                <div style="padding: 10px; background: #eee; display: inline-block; cursor: pointer;" onclick="alert('Clicado, mas inacessível para teclado e leitores de tela')">
+                    Botão Personalizado
+                </div>
+                <p>Este "botão" não é identificável por tecnologias assistivas como um botão e não é acessível por teclado.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Com role e acessibilidade por teclado</h4>
+                <div 
+                    role="button" 
+                    tabindex="0" 
+                    style="padding: 10px; background: #eee; display: inline-block; cursor: pointer;"
+                    onclick="alert('Clicado e acessível!')"
+                    onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }">
+                    Botão Personalizado
+                </div>
+                <p>Este elemento é identificado como botão, pode receber foco e ser ativado com teclado (Enter ou Espaço).</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h3 class="card-title">States e Properties (Estados e Propriedades)</h3>
+        <p>Fornecem informações específicas sobre um objeto, incluindo seu estado atual e como ele se relaciona com outros elementos.</p>
+        
+        <div class="table-container">
+            <table>
+                <caption>Exemplos de States e Properties ARIA comuns</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Atributo</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>aria-expanded</td>
+                        <td>Indica se um elemento está expandido ou recolhido</td>
+                        <td><code>&lt;button aria-expanded="false"&gt;Mostrar mais&lt;/button&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td>aria-hidden</td>
+                        <td>Oculta um elemento das tecnologias assistivas</td>
+                        <td><code>&lt;div aria-hidden="true"&gt;Conteúdo decorativo&lt;/div&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td>aria-label</td>
+                        <td>Rótulo acessível para um elemento</td>
+                        <td><code>&lt;button aria-label="Fechar"&gt;X&lt;/button&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td>aria-describedby</td>
+                        <td>Conecta um elemento à sua descrição</td>
+                        <td><code>&lt;input aria-describedby="help-text"&gt;</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="demo-section">
+            <span class="demo-title">Demonstração: Menu Expansível</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Sem indicação de estado</h4>
+                <button onclick="document.getElementById('menu-bad').style.display = document.getElementById('menu-bad').style.display === 'none' ? 'block' : 'none'">
+                    Menu ▼
+                </button>
+                <ul id="menu-bad" style="display: none; list-style: none; padding: 10px; background: #f5f5f5; margin-top: 5px;">
+                    <li><a href="#">Item 1</a></li>
+                    <li><a href="#">Item 2</a></li>
+                    <li><a href="#">Item 3</a></li>
+                </ul>
+                <p>Este menu não comunica seu estado (expandido/recolhido) para tecnologias assistivas.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Com estados ARIA</h4>
+                <button 
+                    aria-expanded="false" 
+                    aria-controls="menu-good"
+                    onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); document.getElementById('menu-good').style.display = this.getAttribute('aria-expanded') === 'true' ? 'block' : 'none'">
+                    Menu ▼
+                </button>
+                <ul id="menu-good" style="display: none; list-style: none; padding: 10px; background: #f5f5f5; margin-top: 5px;">
+                    <li><a href="#">Item 1</a></li>
+                    <li><a href="#">Item 2</a></li>
+                    <li><a href="#">Item 3</a></li>
+                </ul>
+                <p>Este menu utiliza <code>aria-expanded</code> para comunicar seu estado e <code>aria-controls</code> para indicar qual elemento ele controla.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h3 class="card-title">Live Regions (Regiões Dinâmicas)</h3>
+        <p>Permitem que as mudanças de conteúdo dinâmico sejam anunciadas por tecnologias assistivas sem que o usuário precise navegar até elas.</p>
+        
+        <div class="demo-section">
+            <span class="demo-title">Demonstração: Atualizações Dinâmicas</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Atualização silenciosa</h4>
+                <div>
+                    <button class="btn btn-primary" onclick="document.getElementById('notification-bad').textContent = 'Nova mensagem recebida às ' + new Date().toLocaleTimeString(); document.getElementById('notification-bad').style.display = 'block';">
+                        Simular nova mensagem
+                    </button>
+                    <div id="notification-bad" style="display: none; padding: 10px; background: #e8f5e9; margin-top: 10px;"></div>
+                </div>
+                <p>Esta atualização acontece silenciosamente. Usuários de leitores de tela não saberão que uma nova mensagem chegou.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Com aria-live</h4>
+                <div>
+                    <button class="btn btn-primary" onclick="document.getElementById('notification-good').textContent = 'Nova mensagem recebida às ' + new Date().toLocaleTimeString(); document.getElementById('notification-good').style.display = 'block';">
+                        Simular nova mensagem
+                    </button>
+                    <div 
+                        id="notification-good" 
+                        aria-live="polite" 
+                        style="display: none; padding: 10px; background: #e8f5e9; margin-top: 10px;"></div>
+                </div>
+                <p>Com <code>aria-live="polite"</code>, leitores de tela anunciarão a nova mensagem quando o usuário não estiver ocupado.</p>
+            </div>
+            
+            <div class="code-block">
+&lt;!-- Valores para aria-live --&gt;
+&lt;div aria-live="polite"&gt;
+  &lt;!-- Anunciado quando o usuário estiver inativo, bom para atualizações não urgentes --&gt;
+&lt;/div&gt;
+
+&lt;div aria-live="assertive"&gt;
+  &lt;!-- Anunciado imediatamente, interrompendo o que estiver sendo lido, 
+       usar apenas para alertas críticos --&gt;
+&lt;/div&gt;
+
+&lt;!-- Roles específicas que são implicitamente live regions --&gt;
+&lt;div role="alert"&gt;
+  &lt;!-- Equivalente a aria-live="assertive" --&gt;
+&lt;/div&gt;
+
+&lt;div role="status"&gt;
+  &lt;!-- Equivalente a aria-live="polite" --&gt;
+&lt;/div&gt;
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="aria-landmarks-title">
+    <h2 id="aria-landmarks-title">Landmarks ARIA</h2>
+    <p>Landmarks (pontos de referência) ARIA ajudam usuários de tecnologias assistivas a navegar pelo conteúdo, fornecendo atalhos para seções importantes da página.</p>
+    
+    <div class="card">
+        <h3 class="card-title">Principais Landmarks</h3>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Landmark Role</th>
+                        <th scope="col">Equivalente HTML5</th>
+                        <th scope="col">Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>banner</td>
+                        <td>&lt;header&gt; (quando no escopo global)</td>
+                        <td>Identifica o cabeçalho principal da página</td>
+                    </tr>
+                    <tr>
+                        <td>navigation</td>
+                        <td>&lt;nav&gt;</td>
+                        <td>Conjunto de links de navegação</td>
+                    </tr>
+                    <tr>
+                        <td>main</td>
+                        <td>&lt;main&gt;</td>
+                        <td>Conteúdo principal da página</td>
+                    </tr>
+                    <tr>
+                        <td>complementary</td>
+                        <td>&lt;aside&gt;</td>
+                        <td>Conteúdo complementar ao conteúdo principal</td>
+                    </tr>
+                    <tr>
+                        <td>contentinfo</td>
+                        <td>&lt;footer&gt; (quando no escopo global)</td>
+                        <td>Informações sobre o documento, como copyright</td>
+                    </tr>
+                    <tr>
+                        <td>search</td>
+                        <td>N/A</td>
+                        <td>Formulário ou função de pesquisa</td>
+                    </tr>
+                    <tr>
+                        <td>form</td>
+                        <td>&lt;form&gt; (quando tem nome acessível)</td>
+                        <td>Seção contendo formulário</td>
+                    </tr>
+                    <tr>
+                        <td>region</td>
+                        <td>&lt;section&gt; (quando tem nome acessível)</td>
+                        <td>Seção de conteúdo relevante para o usuário</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="mt-4">
+            <h4>Exemplo de página com landmarks adequados:</h4>
+            
+            <div class="code-block">
+&lt;!-- Usando elementos HTML5 semânticos (recomendado) --&gt;
+&lt;header role="banner"&gt;
+  &lt;h1&gt;Meu Site&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;nav role="navigation" aria-label="Principal"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Início&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Sobre&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;main role="main"&gt;
+  &lt;h2&gt;Conteúdo Principal&lt;/h2&gt;
+  &lt;p&gt;Este é o conteúdo principal da página.&lt;/p&gt;
+  
+  &lt;section aria-labelledby="section-title"&gt;
+    &lt;h3 id="section-title"&gt;Seção Importante&lt;/h3&gt;
+    &lt;p&gt;Conteúdo da seção.&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;aside role="complementary" aria-labelledby="sidebar-title"&gt;
+  &lt;h3 id="sidebar-title"&gt;Informações Adicionais&lt;/h3&gt;
+  &lt;p&gt;Conteúdo complementar.&lt;/p&gt;
+&lt;/aside&gt;
+
+&lt;footer role="contentinfo"&gt;
+  &lt;p&gt;&copy; 2023 Meu Site. Todos os direitos reservados.&lt;/p&gt;
+&lt;/footer&gt;
+            </div>
+            
+            <p>Observações:</p>
+            <ul>
+                <li>É melhor usar elementos HTML5 semânticos quando possível, mas os atributos <code>role</code> garantem compatibilidade com tecnologias assistivas mais antigas</li>
+                <li>Quando múltiplas instâncias do mesmo tipo de landmark existem, use <code>aria-label</code> ou <code>aria-labelledby</code> para diferenciá-las</li>
+                <li>Landmarks ajudam usuários a navegar rapidamente para diferentes seções da página</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="aria-demo-title">
+    <h2 id="aria-demo-title">Exemplo Prático: Tabs Acessíveis</h2>
+    
+    <div class="card">
+        <h3 class="card-title">Componente de Tabs com ARIA</h3>
+        
+        <div class="demo-section" id="aria-demo">
+            <span class="demo-title">Demonstração: Componente de Tabs Acessível</span>
+            
+            <div class="tabs-component">
+                <div role="tablist" aria-label="Informações sobre ARIA">
+                    <button 
+                        id="tab-1" 
+                        role="tab" 
+                        aria-selected="true" 
+                        aria-controls="panel-1"
+                        class="tab-button active"
+                        style="padding: 10px 15px; border: 1px solid #ccc; border-bottom: none; background: #f9f9f9; cursor: pointer;">
+                        Boas Práticas
+                    </button>
+                    <button 
+                        id="tab-2" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="panel-2"
+                        tabindex="-1"
+                        class="tab-button"
+                        style="padding: 10px 15px; border: 1px solid #ccc; border-bottom: none; background: #eee; cursor: pointer;">
+                        Erros Comuns
+                    </button>
+                    <button 
+                        id="tab-3" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="panel-3"
+                        tabindex="-1"
+                        class="tab-button"
+                        style="padding: 10px 15px; border: 1px solid #ccc; border-bottom: none; background: #eee; cursor: pointer;">
+                        Recursos
+                    </button>
+                </div>
+                
+                <div 
+                    id="panel-1" 
+                    role="tabpanel" 
+                    aria-labelledby="tab-1"
+                    class="tab-panel"
+                    style="padding: 15px; border: 1px solid #ccc;">
+                    <h4>Boas Práticas ARIA</h4>
+                    <ul>
+                        <li>Use ARIA apenas quando necessário - HTML semântico deve ser a primeira escolha</li>
+                        <li>Não altere a semântica de elementos HTML nativos</li>
+                        <li>Todos os controles interativos devem ser operáveis por teclado</li>
+                        <li>Todos os elementos interativos devem ter um nome acessível</li>
+                        <li>Mantenha estados ARIA atualizados quando ocorrerem mudanças</li>
+                    </ul>
+                </div>
+                
+                <div 
+                    id="panel-2" 
+                    role="tabpanel" 
+                    aria-labelledby="tab-2"
+                    class="tab-panel"
+                    style="padding: 15px; border: 1px solid #ccc; display: none;">
+                    <h4>Erros Comuns com ARIA</h4>
+                    <ul>
+                        <li>Adicionar <code>role="button"</code> sem tornar o elemento ativável por teclado</li>
+                        <li>Usar <code>aria-hidden="true"</code> em elementos que deveriam ser acessíveis</li>
+                        <li>Adicionar ARIA sem implementar o comportamento esperado</li>
+                        <li>Não atualizar os estados quando a interface muda</li>
+                        <li>Confiar excessivamente em ARIA quando elementos HTML nativos seriam suficientes</li>
+                    </ul>
+                </div>
+                
+                <div 
+                    id="panel-3" 
+                    role="tabpanel" 
+                    aria-labelledby="tab-3"
+                    class="tab-panel"
+                    style="padding: 15px; border: 1px solid #ccc; display: none;">
+                    <h4>Recursos sobre ARIA</h4>
+                    <ul>
+                        <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">ARIA Authoring Practices Guide</a></li>
+                        <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/Accessibility/ARIA" target="_blank" rel="noopener">MDN: ARIA</a></li>
+                        <li><a href="https://www.w3.org/TR/wai-aria-1.1/" target="_blank" rel="noopener">Especificação WAI-ARIA 1.1</a></li>
+                        <li><a href="https://www.w3.org/WAI/tutorials/" target="_blank" rel="noopener">Tutoriais de Acessibilidade Web do W3C</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <script>
+                // Adiciona interatividade para demonstração
+                document.addEventListener('DOMContentLoaded', function() {
+                    const tabs = document.querySelectorAll('.tab-button');
+                    const panels = document.querySelectorAll('.tab-panel');
+                    
+                    tabs.forEach(tab => {
+                        tab.addEventListener('click', function() {
+                            // Desativa todas as abas
+                            tabs.forEach(t => {
+                                t.setAttribute('aria-selected', 'false');
+                                t.classList.remove('active');
+                                t.style.background = '#eee';
+                                t.tabIndex = -1;
+                            });
+                            
+                            // Esconde todos os painéis
+                            panels.forEach(panel => {
+                                panel.style.display = 'none';
+                            });
+                            
+                            // Ativa a aba atual
+                            this.setAttribute('aria-selected', 'true');
+                            this.classList.add('active');
+                            this.style.background = '#f9f9f9';
+                            this.tabIndex = 0;
+                            
+                            // Mostra o painel correspondente
+                            const panelId = this.getAttribute('aria-controls');
+                            document.getElementById(panelId).style.display = 'block';
+                        });
+                        
+                        // Suporte para navegação por teclado
+                        tab.addEventListener('keydown', function(e) {
+                            let targetTab = null;
+                            
+                            if (e.key === 'ArrowRight') {
+                                targetTab = this.nextElementSibling || tabs[0];
+                            } else if (e.key === 'ArrowLeft') {
+                                targetTab = this.previousElementSibling || tabs[tabs.length - 1];
+                            }
+                            
+                            if (targetTab) {
+                                e.preventDefault();
+                                targetTab.click();
+                                targetTab.focus();
+                            }
+                        });
+                    });
+                });
+            </script>
+            
+            <div class="mt-4">
+                <h4>Código do componente de tabs:</h4>
+                <div class="code-block">
+&lt;!-- Estrutura HTML para tabs acessíveis --&gt;
+&lt;div class="tabs-component"&gt;
+  &lt;div role="tablist" aria-label="Informações sobre ARIA"&gt;
+    &lt;button 
+      id="tab-1" 
+      role="tab" 
+      aria-selected="true" 
+      aria-controls="panel-1"
+      class="tab-button active"&gt;
+      Boas Práticas
+    &lt;/button&gt;
+    &lt;button 
+      id="tab-2" 
+      role="tab" 
+      aria-selected="false" 
+      aria-controls="panel-2"
+      tabindex="-1"
+      class="tab-button"&gt;
+      Erros Comuns
+    &lt;/button&gt;
+    &lt;!-- Mais tabs... --&gt;
+  &lt;/div&gt;
+  
+  &lt;div 
+    id="panel-1" 
+    role="tabpanel" 
+    aria-labelledby="tab-1"
+    class="tab-panel"&gt;
+    &lt;h4&gt;Boas Práticas ARIA&lt;/h4&gt;
+    &lt;!-- Conteúdo do painel --&gt;
+  &lt;/div&gt;
+  
+  &lt;div 
+    id="panel-2" 
+    role="tabpanel" 
+    aria-labelledby="tab-2"
+    class="tab-panel"
+    style="display: none;"&gt;
+    &lt;!-- Conteúdo do segundo painel --&gt;
+  &lt;/div&gt;
+  &lt;!-- Mais painéis... --&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  // JavaScript para interatividade
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.tab-button');
+    const panels = document.querySelectorAll('.tab-panel');
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Desativa todas as abas
+        tabs.forEach(t => {
+          t.setAttribute('aria-selected', 'false');
+          t.tabIndex = -1;
+        });
+        
+        // Esconde todos os painéis
+        panels.forEach(panel => {
+          panel.style.display = 'none';
+        });
+        
+        // Ativa a aba atual
+        this.setAttribute('aria-selected', 'true');
+        this.tabIndex = 0;
+        
+        // Mostra o painel correspondente
+        const panelId = this.getAttribute('aria-controls');
+        document.getElementById(panelId).style.display = 'block';
+      });
+      
+      // Suporte para navegação por teclado
+      tab.addEventListener('keydown', function(e) {
+        let targetTab = null;
+        
+        if (e.key === 'ArrowRight') {
+          targetTab = this.nextElementSibling || tabs[0];
+        } else if (e.key === 'ArrowLeft') {
+          targetTab = this.previousElementSibling || tabs[tabs.length - 1];
+        }
+        
+        if (targetTab) {
+          e.preventDefault();
+          targetTab.click();
+          targetTab.focus();
+        }
+      });
+    });
+  });
+&lt;/script&gt;
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="aria-rules-title">
+    <h2 id="aria-rules-title">Regras Essenciais do ARIA</h2>
+    
+    <div class="card">
+        <h3 class="card-title">As cinco regras do ARIA</h3>
+        <ol>
+            <li><strong>Se você pode usar um elemento HTML nativo ou atributo com a semântica e comportamento que você precisa, faça isso ao invés de reprogramar o comportamento com ARIA + JavaScript.</strong></li>
+            <li><strong>Não altere a semântica nativa a menos que você realmente precise.</strong> Por exemplo, não adicione <code>role="button"</code> a um elemento <code>&lt;a&gt;</code>.</li>
+            <li><strong>Todos os controles interativos ARIA devem ser utilizáveis com o teclado.</strong> Se usar <code>role="button"</code>, certifique-se de que o elemento possa receber foco e responder a eventos de teclado.</li>
+            <li><strong>Não use <code>role="presentation"</code> ou <code>aria-hidden="true"</code> em elementos focáveis.</strong> Isso tornará esses elementos inacessíveis por teclado.</li>
+            <li><strong>Todos os elementos interativos devem ter um nome acessível.</strong> Use <code>aria-label</code>, <code>aria-labelledby</code> ou conteúdo de texto para fornecer um nome.</li>
+        </ol>
+        
+        <div class="mt-4">
+            <h4>Lembretes importantes:</h4>
+            <ul>
+                <li>ARIA altera apenas como o conteúdo é comunicado a tecnologias assistivas, não altera comportamento, foco ou estilo</li>
+                <li>Mantenha os atributos ARIA atualizados quando o estado da interface mudar (com JavaScript)</li>
+                <li>Teste sempre seus componentes com tecnologias assistivas reais</li>
+                <li>Siga os padrões de design estabelecidos para componentes interativos</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="resources-title">
+    <h2 id="resources-title">Recursos e Ferramentas</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Documentação e Guias</h3>
+                <ul>
+                    <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">ARIA Authoring Practices Guide (APG)</a></li>
+                    <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/Accessibility/ARIA" target="_blank" rel="noopener">MDN Web Docs: ARIA</a></li>
+                    <li><a href="https://www.w3.org/WAI/tutorials/" target="_blank" rel="noopener">Tutoriais de Acessibilidade Web do W3C</a></li>
+                    <li><a href="https://inclusive-components.design/" target="_blank" rel="noopener">Inclusive Components</a></li>
+                    <li><a href="https://a11yproject.com/" target="_blank" rel="noopener">The A11Y Project</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Ferramentas para Testar ARIA</h3>
+                <ul>
+                    <li><a href="https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd" target="_blank" rel="noopener">axe DevTools</a> - Extensão para Chrome que testa acessibilidade</li>
+                    <li><a href="https://wave.webaim.org/" target="_blank" rel="noopener">WAVE</a> - Avaliador de acessibilidade web com foco em ARIA</li>
+                    <li><a href="https://accessibilityinsights.io/" target="_blank" rel="noopener">Accessibility Insights</a> - Ferramenta da Microsoft para teste de acessibilidade</li>
+                    <li><a href="https://github.com/dequelabs/axe-core" target="_blank" rel="noopener">axe-core</a> - Biblioteca para testes de acessibilidade automatizados</li>
+                    <li><a href="https://www.deque.com/axe/" target="_blank" rel="noopener">Deque Axe</a> - Conjunto de ferramentas para testes de acessibilidade</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="next-steps-title">
+    <h2 id="next-steps-title">Próximos Passos</h2>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card text-center">
+                <h3 class="card-title">Pratique o que aprendeu</h3>
+                <p>Agora que você conhece os princípios de acessibilidade digital e como implementar WAI-ARIA, coloque esse conhecimento em prática. Use nosso formulário de contato acessível para enviar dúvidas ou comentários sobre o conteúdo.</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">Ir para o Formulário de Contato</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

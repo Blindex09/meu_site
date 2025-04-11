@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block title %}Acessibilidade Digital - Robusto{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="robust-title">
+    <h1 id="robust-title">Princípio 4: Robusto</h1>
+    <p>O conteúdo deve ser robusto o suficiente para ser interpretado de forma confiável por uma ampla variedade de agentes de usuário, incluindo tecnologias assistivas.</p>
+    
+    <blockquote>
+        "O conteúdo deve ser robusto o suficiente para poder ser interpretado de forma confiável por uma ampla variedade de agentes de usuário, incluindo tecnologias assistivas."
+        <footer>— WCAG 2.2</footer>
+    </blockquote>
+</section>
+
+<section class="section" aria-labelledby="guidelines-title">
+    <h2 id="guidelines-title">Diretrizes Principais</h2>
+    
+    <div class="card">
+        <h3 class="card-title">4.1 Compatível</h3>
+        <p>Maximize a compatibilidade com agentes de usuário atuais e futuros, incluindo tecnologias assistivas.</p>
+        
+        <div class="demo-section">
+            <span class="demo-title">Demonstração: Validação de HTML</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: HTML com erros</h4>
+                <div class="code-block">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Página com erros&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Título principal&lt;/h2&gt; &lt;!-- Tag de fechamento incorreta --&gt;
+  &lt;div class="container"
+    &lt;p&gt;Parágrafo com tag div não fechada&lt;/p&gt;
+  &lt;button onclick="function()"&gt;Botão&lt;button&gt; &lt;!-- Tag de fechamento incorreta --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+                <p>HTML com erros pode causar problemas de interpretação em diferentes navegadores e tecnologias assistivas, resultando em experiências inconsistentes ou inacessíveis.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: HTML válido</h4>
+                <div class="code-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Página válida&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Título principal&lt;/h1&gt;
+  &lt;div class="container"&gt;
+    &lt;p&gt;Parágrafo com markup correto&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;button type="button"&gt;Botão&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+                <p>HTML válido e bem formado permite que browsers e tecnologias assistivas interpretem corretamente o conteúdo.</p>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h4>Principais aspectos para garantir robustez:</h4>
+            <ul>
+                <li><strong>Parsing:</strong> Código HTML/CSS válido e bem formado</li>
+                <li><strong>Nome, função, valor:</strong> Para todos componentes de interface</li>
+                <li><strong>Status de mensagens:</strong> Informações importantes devem ser comunicadas a tecnologias assistivas</li>
+                <li><strong>Compatibilidade com tecnologias assistivas:</strong> Testar com diferentes leitores de tela</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h3 class="card-title">Nome, Função e Valor</h3>
+        <p>Para todos os componentes da interface do usuário, o nome e a função podem ser determinados programaticamente; estados, propriedades e valores podem ser definidos pelo usuário e notificações de alterações estão disponíveis para agentes de usuário, incluindo tecnologias assistivas.</p>
+        
+        <div class="demo-section">
+            <span class="demo-title">Demonstração: Componentes Acessíveis</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Componente personalizado inacessível</h4>
+                <div class="code-block">
+&lt;!-- Widget de alternância personalizado mas inacessível --&gt;
+&lt;div class="toggle" onclick="toggleState(this)"&gt;
+  &lt;div class="toggle-slider"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+function toggleState(element) {
+  // Alterna a classe 'active', mas não informa tecnologias assistivas
+  element.classList.toggle('active');
+}
+&lt;/script&gt;
+                </div>
+                <p>Este componente personalizado não fornece informações sobre seu nome, função (botão de alternância) ou estado (ativo/inativo) para tecnologias assistivas.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Componente acessível com ARIA</h4>
+                <div class="code-block">
+&lt;!-- Widget de alternância acessível --&gt;
+&lt;button 
+  class="toggle" 
+  role="switch" 
+  aria-checked="false"
+  aria-label="Ativar notificações"
+  onclick="toggleState(this)"&gt;
+  &lt;span class="toggle-slider"&gt;&lt;/span&gt;
+  &lt;span class="toggle-text"&gt;Notificações&lt;/span&gt;
+&lt;/button&gt;
+&lt;script&gt;
+function toggleState(element) {
+  // Alterna o estado e atualiza o atributo ARIA
+  const isActive = element.getAttribute('aria-checked') === 'true';
+  element.setAttribute('aria-checked', !isActive);
+  element.classList.toggle('active');
+}
+&lt;/script&gt;
+                </div>
+                <p>Este componente fornece nome (rótulo "Ativar notificações"), função (papel "switch") e estado (atributo aria-checked) para tecnologias assistivas.</p>
+            </div>
+            
+            <div class="mt-4">
+                <p>Exemplo prático de um botão de alternância acessível:</p>
+                <div class="flex items-center gap-4">
+                    <button 
+                        class="toggle-example" 
+                        role="switch" 
+                        aria-checked="false"
+                        aria-label="Ativar modo escuro"
+                        style="position: relative; width: 60px; height: 30px; background-color: #ccc; border-radius: 15px; border: none; cursor: pointer;"
+                        onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); this.querySelector('.toggle-knob').style.left = this.getAttribute('aria-checked') === 'true' ? '30px' : '2px'; this.style.backgroundColor = this.getAttribute('aria-checked') === 'true' ? '#2563eb' : '#ccc';"
+                    >
+                        <span class="toggle-knob" style="position: absolute; width: 26px; height: 26px; background-color: white; border-radius: 50%; top: 2px; left: 2px; transition: left 0.2s;"></span>
+                    </button>
+                    <span>Modo escuro</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h3 class="card-title">Status de Mensagens</h3>
+        <p>As mensagens de status podem ser determinadas programaticamente através de função ou propriedades, de modo que possam ser apresentadas ao usuário por tecnologias assistivas sem receber foco.</p>
+        
+        <div class="demo-section">
+            <span class="demo-title">Demonstração: Mensagens de Status</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Mensagens não anunciadas</h4>
+                <div id="bad-status-demo">
+                    <button class="btn btn-primary" onclick="document.getElementById('bad-status-message').style.display = 'block';">Adicionar ao carrinho</button>
+                    <div id="bad-status-message" style="display: none; margin-top: 10px; padding: 5px; background-color: #e8f5e9; color: #2e7d32;">
+                        Produto adicionado ao carrinho
+                    </div>
+                </div>
+                <p>Esta mensagem aparece visualmente, mas não é anunciada para usuários de leitores de tela. Eles podem não perceber que a ação foi concluída com sucesso.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Mensagens com role="status"</h4>
+                <div id="good-status-demo">
+                    <button class="btn btn-primary" onclick="document.getElementById('good-status-message').textContent = 'Produto adicionado ao carrinho'; document.getElementById('good-status-message').style.display = 'block';">Adicionar ao carrinho</button>
+                    <div id="good-status-message" role="status" aria-live="polite" style="display: none; margin-top: 10px; padding: 5px; background-color: #e8f5e9; color: #2e7d32;"></div>
+                </div>
+                <p>Esta mensagem usa <code>role="status"</code> e <code>aria-live="polite"</code> para garantir que seja anunciada por leitores de tela quando aparecer, mesmo sem receber foco.</p>
+            </div>
+            
+            <div class="code-block">
+&lt;!-- Exemplo bom: Mensagem de status acessível --&gt;
+&lt;button onclick="adicionarAoCarrinho()"&gt;Adicionar ao carrinho&lt;/button&gt;
+&lt;div id="mensagem-status" role="status" aria-live="polite"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+function adicionarAoCarrinho() {
+  // Lógica para adicionar ao carrinho...
+  
+  // Atualiza a mensagem de status que será anunciada
+  document.getElementById('mensagem-status').textContent = 'Produto adicionado ao carrinho';
+}
+&lt;/script&gt;
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="checklist-title">
+    <h2 id="checklist-title">Checklist de Verificação</h2>
+    
+    <div class="card">
+        <h3 class="card-title">Verificações Importantes</h3>
+        <p>Use esta lista para verificar se seu conteúdo atende ao princípio "Robusto":</p>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Critério</th>
+                        <th scope="col">Como Verificar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>HTML/CSS válido</td>
+                        <td>Use validadores W3C para HTML e CSS</td>
+                    </tr>
+                    <tr>
+                        <td>Nome e função acessíveis</td>
+                        <td>Verifique se todos os controles têm nomes acessíveis e funções bem definidas</td>
+                    </tr>
+                    <tr>
+                        <td>Compatibilidade com tecnologias assistivas</td>
+                        <td>Teste com NVDA, JAWS, VoiceOver ou outros leitores de tela</td>
+                    </tr>
+                    <tr>
+                        <td>Estados e propriedades ARIA</td>
+                        <td>Verifique se estados (como expanded/collapsed) são comunicados via ARIA</td>
+                    </tr>
+                    <tr>
+                        <td>Mensagens de status</td>
+                        <td>Use role="status" ou role="alert" para mensagens importantes</td>
+                    </tr>
+                    <tr>
+                        <td>Compatibilidade com navegadores</td>
+                        <td>Teste em múltiplos navegadores (Chrome, Firefox, Safari, Edge)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="tools-title">
+    <h2 id="tools-title">Ferramentas de Validação</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Validadores de Código</h3>
+                <ul>
+                    <li><a href="https://validator.w3.org/" target="_blank" rel="noopener">Validador HTML do W3C</a></li>
+                    <li><a href="https://jigsaw.w3.org/css-validator/" target="_blank" rel="noopener">Validador CSS do W3C</a></li>
+                    <li><a href="https://validator.w3.org/nu/" target="_blank" rel="noopener">Nu Html Checker</a></li>
+                    <li><a href="https://wave.webaim.org/" target="_blank" rel="noopener">WAVE (Avaliador de Acessibilidade Web)</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Ferramentas de Teste</h3>
+                <ul>
+                    <li><a href="https://www.nvaccess.org/download/" target="_blank" rel="noopener">NVDA</a> - Leitor de tela gratuito para Windows</li>
+                    <li><a href="https://developer.apple.com/library/archive/documentation/Accessibility/Conceptual/AccessibilityMacOSX/VOOverview.html" target="_blank" rel="noopener">VoiceOver</a> - Leitor de tela integrado ao macOS e iOS</li>
+                    <li><a href="https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd" target="_blank" rel="noopener">axe DevTools</a> - Extensão para Chrome</li>
+                    <li><a href="https://developers.google.com/web/tools/lighthouse" target="_blank" rel="noopener">Lighthouse</a> - Ferramenta integrada ao Chrome DevTools</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="next-steps-title">
+    <h2 id="next-steps-title">Próximos Passos</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Recursos Adicionais</h3>
+                <ul>
+                    <li><a href="https://www.w3.org/WAI/standards-guidelines/wcag/glance/" target="_blank" rel="noopener">WCAG 2 em um relance</a></li>
+                    <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">Guia de Práticas de Autoria ARIA</a></li>
+                    <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/Accessibility" target="_blank" rel="noopener">MDN Web Docs: Acessibilidade</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Continue Aprendendo</h3>
+                <p>Explore mais sobre as práticas avançadas de acessibilidade com WAI-ARIA:</p>
+                <a href="{{ url_for('aria') }}" class="btn btn-primary">Próximo: WAI-ARIA</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,156 @@
+/* High Contrast Theme */
+.high-contrast {
+  --color-primary: #ffff00;
+  --color-primary-hover: #e6e600;
+  --color-secondary: #00ffff;
+  --color-secondary-hover: #00e6e6;
+  --color-text: #ffffff;
+  --color-text-light: #f0f0f0;
+  --color-heading: #ffffff;
+  --color-background: #000000;
+  --color-background-alt: #1a1a1a;
+  --color-border: #ffffff;
+  --color-error: #ff6666;
+  --color-success: #66ff66;
+  --color-warning: #ffcc00;
+  --color-focus: #ffff00;
+}
+
+.high-contrast a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.high-contrast a:hover, .high-contrast a:focus {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+.high-contrast .btn-primary {
+  background-color: var(--color-primary);
+  color: #000000;
+  border: 2px solid transparent;
+}
+
+.high-contrast .btn-primary:hover, .high-contrast .btn-primary:focus {
+  background-color: var(--color-primary-hover);
+  color: #000000;
+  border: 2px solid #ffffff;
+}
+
+.high-contrast .btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.high-contrast .btn-secondary:hover, .high-contrast .btn-secondary:focus {
+  background-color: rgba(255, 255, 0, 0.2);
+  border: 2px solid #ffffff;
+}
+
+.high-contrast .site-header {
+  border-bottom: 2px solid var(--color-border);
+}
+
+.high-contrast .site-footer {
+  border-top: 2px solid var(--color-border);
+}
+
+.high-contrast .card {
+  border: 2px solid var(--color-border);
+  box-shadow: none;
+}
+
+.high-contrast .form-control {
+  background-color: #000000;
+  color: #ffffff;
+  border: 2px solid var(--color-border);
+}
+
+.high-contrast .form-control:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary);
+}
+
+.high-contrast .nav-link::after {
+  height: 3px;
+}
+
+.high-contrast .a11y-btn {
+  border: 2px solid var(--color-border);
+}
+
+.high-contrast .a11y-btn.active {
+  background-color: var(--color-primary);
+  color: #000000;
+  border-color: var(--color-primary);
+}
+
+.high-contrast .section-title {
+  border-bottom: 3px solid var(--color-primary);
+}
+
+.high-contrast th {
+  background-color: #1a1a1a;
+  border: 1px solid var(--color-border);
+}
+
+.high-contrast td {
+  border: 1px solid var(--color-border);
+}
+
+.high-contrast .code-block {
+  background-color: #1a1a1a;
+  border: 2px solid var(--color-border);
+}
+
+.high-contrast .demo-bad {
+  background-color: #330000;
+  border-left: 6px solid var(--color-error);
+}
+
+.high-contrast .demo-good {
+  background-color: #003300;
+  border-left: 6px solid var(--color-success);
+}
+
+.high-contrast .alert-error {
+  background-color: #330000;
+  border: 2px solid var(--color-error);
+}
+
+.high-contrast .alert-success {
+  background-color: #003300;
+  border: 2px solid var(--color-success);
+}
+
+.high-contrast .alert-warning {
+  background-color: #332200;
+  border: 2px solid var(--color-warning);
+}
+
+.high-contrast :focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* All images get a white border in high contrast mode */
+.high-contrast img {
+  border: 2px solid white;
+}
+
+.high-contrast svg {
+  filter: invert(100%);
+}
+
+/* Make sure focus rings are very visible */
+.high-contrast :focus:not(:focus-visible) {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.high-contrast :focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}

@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Acessibilidade Digital - Início{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="hero-title">
+    <h1 id="hero-title">Acessibilidade Digital na Prática</h1>
+    <p>Este site demonstra e ensina sobre acessibilidade web, implementando as diretrizes WCAG 2.2 e WAI-ARIA nos próprios exemplos que apresenta. Navegue pelo site para experimentar uma web acessível e aprender como implementá-la.</p>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <h2 class="card-title">O que é Acessibilidade Digital?</h2>
+                <p class="card-desc">Acessibilidade digital significa criar tecnologias e conteúdos que possam ser acessados por todas as pessoas, incluindo aquelas com deficiências visuais, auditivas, motoras ou cognitivas.</p>
+                <p>Quando um site ou aplicativo é acessível, ele oferece a mesma informação e funcionalidade para todos os usuários, independentemente de suas capacidades ou da tecnologia que utilizam para navegar.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <h2 class="card-title">Por que é importante?</h2>
+                <p class="card-desc">Além de ser um direito humano fundamental, a acessibilidade digital também:</p>
+                <ul>
+                    <li>Amplia seu público alcançando mais pessoas</li>
+                    <li>Melhora a experiência para todos os usuários</li>
+                    <li>Cumpre requisitos legais em muitos países</li>
+                    <li>Melhora o SEO e a compatibilidade com mais dispositivos</li>
+                    <li>Demonstra responsabilidade social</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="wcag-title">
+    <h2 id="wcag-title">WCAG 2.2 - Os Quatro Princípios</h2>
+    <p>As Diretrizes de Acessibilidade para Conteúdo Web (WCAG) 2.2 são organizadas em torno de quatro princípios fundamentais. Todo conteúdo web deve ser:</p>
+    
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <h3 class="card-title">Perceptível</h3>
+                <p class="card-desc">A informação e os componentes da interface devem ser apresentados de maneira que possam ser percebidos por todos os usuários.</p>
+                <a href="{{ url_for('perceptible') }}" class="btn btn-primary">Saiba mais</a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <h3 class="card-title">Operável</h3>
+                <p class="card-desc">Os componentes de interface e navegação devem ser operáveis por qualquer usuário, independente do dispositivo ou habilidade.</p>
+                <a href="{{ url_for('operable') }}" class="btn btn-primary">Saiba mais</a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <h3 class="card-title">Compreensível</h3>
+                <p class="card-desc">A informação e a operação da interface devem ser facilmente compreensíveis para todos os usuários.</p>
+                <a href="{{ url_for('understandable') }}" class="btn btn-primary">Saiba mais</a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <h3 class="card-title">Robusto</h3>
+                <p class="card-desc">O conteúdo deve ser robusto o suficiente para ser interpretado por uma ampla variedade de agentes de usuário, incluindo tecnologias assistivas.</p>
+                <a href="{{ url_for('robust') }}" class="btn btn-primary">Saiba mais</a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <h3 class="card-title">WAI-ARIA</h3>
+                <p class="card-desc">Um conjunto de atributos que definem formas de tornar o conteúdo web mais acessível para pessoas com deficiências.</p>
+                <a href="{{ url_for('aria') }}" class="btn btn-primary">Saiba mais</a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <h3 class="card-title">Acessibilidade na Prática</h3>
+                <p class="card-desc">Este site implementa todos os conceitos que apresenta. Experimente as ferramentas de acessibilidade e observe como o site se adapta.</p>
+                <ul>
+                    <li>Use o navegador apenas com teclado</li>
+                    <li>Ative o modo de alto contraste</li>
+                    <li>Aumente o tamanho do texto</li>
+                    <li>Teste com um leitor de tela</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="barriers-title">
+    <h2 id="barriers-title">Barreiras de Acessibilidade Comuns</h2>
+    <p>Muitas pessoas enfrentam obstáculos ao navegar na web. Entender essas barreiras é o primeiro passo para eliminá-las:</p>
+    
+    <div class="table-container">
+        <table>
+            <caption>Barreiras de acessibilidade por tipo de deficiência</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Tipo de Deficiência</th>
+                    <th scope="col">Barreiras Comuns</th>
+                    <th scope="col">Soluções</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Visual</th>
+                    <td>Imagens sem texto alternativo, baixo contraste, navegação dependente de mouse</td>
+                    <td>Textos alternativos, alto contraste, navegação por teclado, compatibilidade com leitores de tela</td>
+                </tr>
+                <tr>
+                    <th scope="row">Auditiva</th>
+                    <td>Vídeos sem legendas, conteúdo exclusivamente em áudio</td>
+                    <td>Legendas, transcrições, língua de sinais em vídeos</td>
+                </tr>
+                <tr>
+                    <th scope="row">Motora</th>
+                    <td>Elementos pequenos, tempos de resposta curtos, dependência de movimentos precisos</td>
+                    <td>Navegação por teclado, alvos clicáveis maiores, tolerância a erros</td>
+                </tr>
+                <tr>
+                    <th scope="row">Cognitiva</th>
+                    <td>Conteúdo complexo, distrações, inconsistência na navegação</td>
+                    <td>Linguagem clara, design consistente, instruções explícitas</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="testing-title">
+    <h2 id="testing-title">Ferramentas de Teste de Acessibilidade</h2>
+    <p>Existem diversas ferramentas que podem ajudar a identificar problemas de acessibilidade em seu site:</p>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Ferramentas Automáticas</h3>
+                <ul>
+                    <li><strong>WAVE</strong> - Avaliador de acessibilidade web</li>
+                    <li><strong>Lighthouse</strong> - Ferramenta do Google Chrome</li>
+                    <li><strong>axe</strong> - Motor de acessibilidade para testes automatizados</li>
+                    <li><strong>Accessibility Insights</strong> - Ferramenta da Microsoft</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Testes Manuais</h3>
+                <ul>
+                    <li><strong>Navegação por teclado</strong> - Tente navegar sem mouse</li>
+                    <li><strong>Leitores de tela</strong> - NVDA, JAWS, VoiceOver</li>
+                    <li><strong>Simuladores de daltonismo</strong> - Para testar esquemas de cores</li>
+                    <li><strong>Teste com usuários reais</strong> - A melhor forma de validação</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="get-started-title">
+    <h2 id="get-started-title">Comece Agora</h2>
+    <p>Explore as seções deste site para aprender mais sobre cada princípio da acessibilidade digital e como implementá-lo em seus projetos.</p>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card text-center">
+                <h3 class="card-title">Entre em contato</h3>
+                <p class="card-desc">Tem dúvidas sobre acessibilidade ou precisa de ajuda com seus projetos?</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">Formulário de Contato</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

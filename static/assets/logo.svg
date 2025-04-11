@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="50" viewBox="0 0 200 50" aria-hidden="true" role="img">
+  <title>Acessibilidade Digital</title>
+  <g fill="none" stroke="#2563eb" stroke-width="2">
+    <circle cx="25" cy="25" r="20" />
+    <path d="M25 5v40" />
+    <path d="M5 25h40" />
+    <path d="M10 10l30 30" />
+    <path d="M10 40l30-30" />
+  </g>
+  <text x="60" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">Acessibilidade Digital</text>
+</svg>

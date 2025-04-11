@@ -1,0 +1,314 @@
+{% extends "base.html" %}
+
+{% block title %}Acessibilidade Digital - Perceptível{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="perceptible-title">
+    <h1 id="perceptible-title">Princípio 1: Perceptível</h1>
+    <p>As informações e os componentes da interface do usuário devem ser apresentados de maneira que possam ser percebidos por todos, independentemente de suas capacidades sensoriais.</p>
+    
+    <blockquote>
+        "Informação e componentes da interface de usuário devem ser apresentados aos usuários em formas que eles possam perceber."
+        <footer>— WCAG 2.2</footer>
+    </blockquote>
+</section>
+
+<section class="section" aria-labelledby="guidelines-title">
+    <h2 id="guidelines-title">Diretrizes Principais</h2>
+    
+    <div class="card">
+        <h3 class="card-title">1.1 Alternativas em Texto</h3>
+        <p>Forneça alternativas em texto para qualquer conteúdo não textual.</p>
+        
+        <div class="demo-section" id="alt-text-demo">
+            <span class="demo-title">Demonstração: Texto Alternativo</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Imagem sem texto alternativo</h4>
+                <div id="alt-text-images">
+                    <img src="https://via.placeholder.com/300x200?text=Imagem+de+Exemplo" width="300" height="200">
+                    <!-- Intencionalmente sem alt para demonstração -->
+                </div>
+                <p>Quando uma imagem não possui texto alternativo, leitores de tela podem anunciar apenas o nome do arquivo ou ignorar completamente a imagem.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Imagem com texto alternativo adequado</h4>
+                <img src="https://via.placeholder.com/300x200?text=Imagem+de+Exemplo" alt="Gráfico mostrando estatísticas de acessibilidade web no Brasil em 2023" width="300" height="200">
+                <p>Com texto alternativo adequado, os usuários de leitores de tela recebem a mesma informação transmitida pela imagem.</p>
+            </div>
+            
+            <button id="toggle-images-btn" class="btn btn-secondary mt-4">Esconder imagens (mostrar texto alternativo)</button>
+            
+            <div class="code-block">
+&lt;!-- Exemplo ruim: Sem texto alternativo --&gt;
+&lt;img src="grafico.jpg"&gt;
+
+&lt;!-- Exemplo bom: Com texto alternativo adequado --&gt;
+&lt;img src="grafico.jpg" alt="Gráfico mostrando estatísticas de acessibilidade web no Brasil em 2023"&gt;
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h3 class="card-title">1.2 Mídias com Base no Tempo</h3>
+        <p>Forneça alternativas para mídias com base no tempo, como legendas, audiodescrição ou transcrição.</p>
+        
+        <div class="demo-section">
+            <span class="demo-title">Mídia Acessível</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Vídeo sem legendas ou transcrição</h4>
+                <p>Um vídeo sem legendas ou transcrição exclui pessoas surdas ou com deficiência auditiva do acesso ao conteúdo.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Vídeo com legendas e transcrição</h4>
+                <p>Adicione legendas a vídeos e forneça transcrições para conteúdo em áudio e vídeo.</p>
+                <p>Exemplo de implementação com HTML5:</p>
+            </div>
+            
+            <div class="code-block">
+&lt;video controls&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+  &lt;track kind="captions" src="legendas.vtt" srclang="pt-BR" label="Português"&gt;
+  &lt;track kind="descriptions" src="audiodescricao.vtt" srclang="pt-BR" label="Audiodescrição"&gt;
+  &lt;p&gt;Seu navegador não suporta vídeos HTML5. Aqui está &lt;a href="video-transcript.html"&gt;uma transcrição do vídeo&lt;/a&gt;.&lt;/p&gt;
+&lt;/video&gt;
+
+&lt;details&gt;
+  &lt;summary&gt;Transcrição do vídeo&lt;/summary&gt;
+  &lt;div&gt;
+    &lt;p&gt;[Pessoa falando]: "A acessibilidade digital é um direito de todos..."&lt;/p&gt;
+    &lt;p&gt;[Descrição da cena]: Demonstração de uma pessoa usando leitor de tela&lt;/p&gt;
+    &lt;!-- Transcrição completa --&gt;
+  &lt;/div&gt;
+&lt;/details&gt;
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h3 class="card-title">1.3 Adaptável</h3>
+        <p>Crie conteúdo que possa ser apresentado de diferentes maneiras sem perder informação ou estrutura.</p>
+        
+        <div class="demo-section" id="semantic-structure-demo">
+            <span class="demo-title">Demonstração: Estrutura Semântica</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Uso excessivo de divs sem semântica</h4>
+                <div id="bad-structure">
+                    <div>
+                        <div>Meu Site</div>
+                    </div>
+                    <div>
+                        <div>Navegação</div>
+                        <div>
+                            <div>Link 1</div>
+                            <div>Link 2</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>Conteúdo Principal</div>
+                        <div>
+                            <div>Subtítulo</div>
+                            <div>Texto de exemplo...</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>Rodapé</div>
+                    </div>
+                </div>
+                <p>Estrutura sem significado semântico dificulta a navegação para usuários de leitores de tela.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Uso de elementos semânticos HTML5</h4>
+                <div id="good-structure">
+                    <header>
+                        <h1>Meu Site</h1>
+                    </header>
+                    <nav>
+                        <h2>Navegação</h2>
+                        <ul>
+                            <li><a href="#">Link 1</a></li>
+                            <li><a href="#">Link 2</a></li>
+                        </ul>
+                    </nav>
+                    <main>
+                        <h2>Conteúdo Principal</h2>
+                        <article>
+                            <h3>Subtítulo</h3>
+                            <p>Texto de exemplo...</p>
+                        </article>
+                    </main>
+                    <footer>
+                        <p>Rodapé</p>
+                    </footer>
+                </div>
+                <p>Estrutura semântica clara permite que tecnologias assistivas identifiquem corretamente cada seção.</p>
+            </div>
+            
+            <button id="toggle-structure-btn" class="btn btn-secondary mt-4" aria-pressed="false">Mostrar estrutura semântica</button>
+            
+            <div class="code-block">
+&lt;!-- Exemplo ruim: Sem semântica --&gt;
+&lt;div&gt;
+  &lt;div&gt;Meu Site&lt;/div&gt;
+  &lt;div&gt;
+    &lt;div&gt;Navegação&lt;/div&gt;
+    &lt;div&gt;Link 1&lt;/div&gt;
+    &lt;div&gt;Link 2&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;div&gt;Título&lt;/div&gt;
+    &lt;div&gt;Texto...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Exemplo bom: Com semântica HTML5 --&gt;
+&lt;header&gt;
+  &lt;h1&gt;Meu Site&lt;/h1&gt;
+&lt;/header&gt;
+&lt;nav&gt;
+  &lt;h2&gt;Navegação&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Link 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Link 2&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;main&gt;
+  &lt;h2&gt;Título&lt;/h2&gt;
+  &lt;p&gt;Texto...&lt;/p&gt;
+&lt;/main&gt;
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h3 class="card-title">1.4 Discernível</h3>
+        <p>Torne mais fácil para os usuários ver e ouvir o conteúdo, incluindo a separação do primeiro plano do plano de fundo.</p>
+        
+        <div class="demo-section" id="contrast-demo">
+            <span class="demo-title">Demonstração: Contraste de Cores</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Baixo contraste</h4>
+                <div style="padding: 15px; background-color: #f8f8f8;">
+                    <p id="bad-contrast-text" style="color: #c0c0c0;">Este texto tem um contraste insuficiente com o fundo, tornando-o difícil de ler para muitas pessoas, especialmente aquelas com baixa visão.</p>
+                </div>
+                <p>Relação de contraste: 1.5:1 (abaixo do mínimo recomendado de 4.5:1)</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Alto contraste</h4>
+                <div style="padding: 15px; background-color: #f8f8f8;">
+                    <p id="good-contrast-text" style="color: #000000;">Este texto tem contraste adequado com o fundo, tornando-o legível para a maioria das pessoas, incluindo aquelas com baixa visão.</p>
+                </div>
+                <p>Relação de contraste: 21:1 (bem acima do mínimo recomendado)</p>
+            </div>
+            
+            <div class="mt-4">
+                <label for="contrast-slider">Ajuste o contraste (simulação):</label>
+                <input type="range" id="contrast-slider" min="0" max="100" value="100" aria-describedby="contrast-slider-announce">
+                <div id="contrast-slider-announce" class="sr-only" aria-live="polite"></div>
+            </div>
+            
+            <div class="code-block">
+/* CSS com contraste insuficiente */
+.baixo-contraste {
+  background-color: #f8f8f8;
+  color: #c0c0c0; /* Contraste insuficiente */
+}
+
+/* CSS com contraste adequado */
+.alto-contraste {
+  background-color: #f8f8f8;
+  color: #000000; /* Contraste adequado */
+}
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>Outros aspectos do princípio "Discernível":</h4>
+            <ul>
+                <li><strong>Tamanho do texto</strong>: O texto deve ser redimensionável até 200% sem perda de conteúdo ou funcionalidade</li>
+                <li><strong>Imagens de texto</strong>: Evite usar imagens de texto quando o mesmo efeito visual pode ser obtido com texto estilizado</li>
+                <li><strong>Controle de áudio</strong>: Forneça controles para pausar, parar ou ajustar o volume de qualquer áudio que reproduza automaticamente</li>
+                <li><strong>Espaçamento do texto</strong>: Permita que usuários ajustem o espaçamento do texto sem perda de conteúdo ou funcionalidade</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="checklist-title">
+    <h2 id="checklist-title">Checklist de Verificação</h2>
+    
+    <div class="card">
+        <h3 class="card-title">Verificações Importantes</h3>
+        <p>Use esta lista para verificar se seu conteúdo atende ao princípio "Perceptível":</p>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Critério</th>
+                        <th scope="col">Como Verificar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Todas as imagens têm texto alternativo</td>
+                        <td>Verifique se todas as tags <code>&lt;img&gt;</code> possuem atributo <code>alt</code> adequado</td>
+                    </tr>
+                    <tr>
+                        <td>Contraste de cores adequado</td>
+                        <td>Use ferramentas como WAVE ou Colour Contrast Analyzer para verificar relações de contraste</td>
+                    </tr>
+                    <tr>
+                        <td>Estrutura semântica correta</td>
+                        <td>Verifique se o HTML usa elementos semânticos (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Conteúdo responsivo</td>
+                        <td>Teste em diferentes tamanhos de tela e níveis de zoom</td>
+                    </tr>
+                    <tr>
+                        <td>Multimídia com alternativas</td>
+                        <td>Verifique se vídeos têm legendas e áudios têm transcrições</td>
+                    </tr>
+                    <tr>
+                        <td>Informações não dependem apenas de cor</td>
+                        <td>Confirme que todas as informações transmitidas com cor também são disponíveis de outras formas</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="next-steps-title">
+    <h2 id="next-steps-title">Próximos Passos</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Ferramentas Úteis</h3>
+                <ul>
+                    <li><a href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener">WebAIM: Verificador de Contraste de Cores</a></li>
+                    <li><a href="https://wave.webaim.org/" target="_blank" rel="noopener">WAVE: Web Accessibility Evaluation Tool</a></li>
+                    <li><a href="https://color.a11y.com/" target="_blank" rel="noopener">Color Contrast Accessibility Validator</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Continue Aprendendo</h3>
+                <p>Explore os outros princípios WCAG para criar uma experiência web totalmente acessível:</p>
+                <a href="{{ url_for('operable') }}" class="btn btn-primary">Próximo: Princípio 2 - Operável</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Site educativo sobre acessibilidade digital que demonstra as diretrizes WCAG 2.2 e WAI-ARIA na prática">
+    <title>{% block title %}Acessibilidade Digital{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/high-contrast.css') }}">
+    <!-- Preload critical JavaScript -->
+    <link rel="preload" href="{{ url_for('static', filename='js/accessibility.js') }}" as="script">
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net/npm/chart.js">
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='assets/logo.svg') }}" type="image/svg+xml">
+</head>
+<body>
+    <!-- Skip link for keyboard users -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+    
+    <!-- Accessibility Tools Bar -->
+    <div class="accessibility-tools" role="region" aria-label="Ferramentas de acessibilidade">
+        <div class="container">
+            <div class="a11y-controls">
+                <button id="contrast-toggle" class="a11y-btn" aria-pressed="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"></path>
+                        <path d="M12 2v20"></path>
+                    </svg>
+                    Alto Contraste
+                </button>
+                <button id="font-size-toggle" class="a11y-btn" aria-pressed="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="4 7 4 4 20 4 20 7"></polyline>
+                        <line x1="9" y1="20" x2="15" y2="20"></line>
+                        <line x1="12" y1="4" x2="12" y2="20"></line>
+                    </svg>
+                    Aumentar Texto
+                </button>
+                <span class="a11y-info">
+                    Atalhos: ALT+1 (início), ALT+2 (conteúdo), ALT+3 (contato), ALT+4 (contraste), ALT+5 (texto)
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header" role="banner">
+        <div class="container">
+            <div class="header-wrapper">
+                <div class="site-logo">
+                    <a href="{{ url_for('index') }}" aria-label="Página inicial">
+                        <img src="{{ url_for('static', filename='assets/logo.svg') }}" alt="Logo Acessibilidade Digital" width="200" height="50">
+                    </a>
+                </div>
+                
+                <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="site-navigation">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    <span class="sr-only">Menu</span>
+                </button>
+                
+                <nav id="site-navigation" class="site-nav" role="navigation" aria-label="Menu principal">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="{{ url_for('index') }}" class="nav-link {% if request.path == url_for('index') %}active{% endif %}">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('perceptible') }}" class="nav-link {% if request.path == url_for('perceptible') %}active{% endif %}">Perceptível</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('operable') }}" class="nav-link {% if request.path == url_for('operable') %}active{% endif %}">Operável</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('understandable') }}" class="nav-link {% if request.path == url_for('understandable') %}active{% endif %}">Compreensível</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('robust') }}" class="nav-link {% if request.path == url_for('robust') %}active{% endif %}">Robusto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('aria') }}" class="nav-link {% if request.path == url_for('aria') %}active{% endif %}">WAI-ARIA</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('contact') }}" class="nav-link {% if request.path == url_for('contact') %}active{% endif %}">Contato</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main" tabindex="-1">
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages" role="alert" aria-live="polite">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            {% if error_message %}
+                <div class="error-page">
+                    <h1>{{ error_code }}</h1>
+                    <p>{{ error_message }}</p>
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Voltar para a página inicial</a>
+                </div>
+            {% else %}
+                {% block content %}{% endblock %}
+            {% endif %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h2 class="footer-title">Sobre</h2>
+                    <p>Este site serve como um exemplo prático e guia educativo sobre acessibilidade digital e as diretrizes WCAG 2.2 e WAI-ARIA.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h2 class="footer-title">Navegação</h2>
+                    <ul class="footer-nav">
+                        <li><a href="{{ url_for('index') }}">Início</a></li>
+                        <li><a href="{{ url_for('perceptible') }}">Perceptível</a></li>
+                        <li><a href="{{ url_for('operable') }}">Operável</a></li>
+                        <li><a href="{{ url_for('understandable') }}">Compreensível</a></li>
+                        <li><a href="{{ url_for('robust') }}">Robusto</a></li>
+                        <li><a href="{{ url_for('aria') }}">WAI-ARIA</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h2 class="footer-title">Recursos</h2>
+                    <ul class="footer-nav">
+                        <li><a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener">WCAG 2.2 (W3C)</a></li>
+                        <li><a href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank" rel="noopener">WAI-ARIA (W3C)</a></li>
+                        <li><a href="https://www.w3c.br/traducoes/wcag/wcag21-pt-BR/" target="_blank" rel="noopener">WCAG em Português</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Acessibilidade Digital - Este site foi criado como exemplo educativo de implementação das diretrizes WCAG 2.2 e WAI-ARIA.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/interactive-demos.js') }}"></script>
+</body>
+</html>

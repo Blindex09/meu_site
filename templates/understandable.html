@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% block title %}Acessibilidade Digital - Compreensível{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="understandable-title">
+    <h1 id="understandable-title">Princípio 3: Compreensível</h1>
+    <p>A informação e a operação da interface do usuário devem ser compreensíveis para todos. Isso significa que o conteúdo deve ser claro e a funcionalidade previsível.</p>
+    
+    <blockquote>
+        "A informação e a operação da interface de usuário devem ser compreensíveis."
+        <footer>— WCAG 2.2</footer>
+    </blockquote>
+</section>
+
+<section class="section" aria-labelledby="guidelines-title">
+    <h2 id="guidelines-title">Diretrizes Principais</h2>
+    
+    <div class="card">
+        <h3 class="card-title">3.1 Legível</h3>
+        <p>Torne o conteúdo do texto legível e compreensível para todos os usuários.</p>
+        
+        <div class="demo-section">
+            <span class="demo-title">Demonstração: Linguagem Clara</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Linguagem complexa e técnica</h4>
+                <p>A implementação hipotética de paradigmas de acessibilidade digital mediante metodologias de semantização estrutural em HTML5 possibilita a obtenção de resultados otimizados em termos de interatividade assistiva para dispositivos de tecnologia adaptativa.</p>
+                <p>O exemplo acima usa linguagem desnecessariamente complexa e jargão técnico, tornando o conteúdo difícil de entender para muitos usuários.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Linguagem clara e direta</h4>
+                <p>Usar HTML5 com estrutura semântica clara torna seu site mais acessível. Isso ajuda pessoas que usam leitores de tela e outras tecnologias assistivas a entenderem melhor seu conteúdo.</p>
+                <p>O exemplo acima transmite a mesma informação, mas de forma clara e direta, facilitando a compreensão para todos os usuários.</p>
+            </div>
+            
+            <h4 class="mt-4">Boas práticas para conteúdo legível:</h4>
+            <ul>
+                <li>Use linguagem clara e direta, evitando jargões desnecessários</li>
+                <li>Organize o conteúdo com cabeçalhos e listas para facilitar a leitura</li>
+                <li>Defina o idioma principal do documento e de seções em outros idiomas</li>
+                <li>Explique abreviações e termos técnicos na primeira ocorrência</li>
+                <li>Ofereça definições para palavras incomuns ou uso específico de palavras</li>
+            </ul>
+            
+            <div class="code-block">
+&lt;!-- Definindo o idioma principal do documento --&gt;
+&lt;html lang="pt-BR"&gt;
+
+&lt;!-- Marcando uma seção em outro idioma --&gt;
+&lt;p&gt;O termo &lt;span lang="en"&gt;responsive design&lt;/span&gt; se refere a sites que se adaptam a diferentes tamanhos de tela.&lt;/p&gt;
+
+&lt;!-- Marcando abreviações --&gt;
+&lt;p&gt;A &lt;abbr title="World Wide Web Consortium"&gt;W3C&lt;/abbr&gt; desenvolve padrões web.&lt;/p&gt;
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h3 class="card-title">3.2 Previsível</h3>
+        <p>Faça com que as páginas da web apareçam e funcionem de maneira previsível para todos os usuários.</p>
+        
+        <div class="demo-section">
+            <span class="demo-title">Demonstração: Operação Previsível</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Mudanças automáticas inesperadas</h4>
+                <form>
+                    <div class="form-group">
+                        <label for="country-select-bad">Selecione seu país:</label>
+                        <select id="country-select-bad" onchange="alert('Na versão ruim, esta seleção causaria uma mudança automática de contexto, como redirecionar para outra página sem aviso.')">
+                            <option value="">Escolha um país</option>
+                            <option value="br">Brasil</option>
+                            <option value="pt">Portugal</option>
+                            <option value="us">Estados Unidos</option>
+                        </select>
+                    </div>
+                </form>
+                <p>No exemplo acima, mudar a seleção causaria uma mudança de contexto automática (como um redirecionamento) sem avisar o usuário. Isso é desorientador e frustrante.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Controle do usuário sobre mudanças</h4>
+                <form>
+                    <div class="form-group">
+                        <label for="country-select-good">Selecione seu país:</label>
+                        <select id="country-select-good">
+                            <option value="">Escolha um país</option>
+                            <option value="br">Brasil</option>
+                            <option value="pt">Portugal</option>
+                            <option value="us">Estados Unidos</option>
+                        </select>
+                        <button type="button" class="btn btn-primary mt-4">Confirmar seleção</button>
+                    </div>
+                </form>
+                <p>No exemplo acima, a mudança de seleção não causa alteração automática. O usuário tem controle para confirmar sua escolha antes de qualquer mudança de contexto.</p>
+            </div>
+            
+            <h4 class="mt-4">Boas práticas para interfaces previsíveis:</h4>
+            <ul>
+                <li>Mantenha navegação e elementos de interface consistentes em todas as páginas</li>
+                <li>Não inicie mudanças automáticas quando um elemento recebe foco</li>
+                <li>Não altere o contexto automaticamente quando um usuário insere dados</li>
+                <li>Forneça mecanismos para interromper ou controlar conteúdo em movimento</li>
+                <li>Avise usuários antes de abrir novas janelas ou guias</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h3 class="card-title">3.3 Assistência de Entrada</h3>
+        <p>Ajude os usuários a evitar e corrigir erros em formulários e outras interações.</p>
+        
+        <div class="demo-section" id="error-message-demo">
+            <span class="demo-title">Demonstração: Mensagens de Erro Acessíveis</span>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Mensagens de erro inadequadas</h4>
+                <form id="bad-error-form">
+                    <div class="form-group">
+                        <label for="bad-error-input">Nome:</label>
+                        <input type="text" id="bad-error-input" name="name">
+                        <button type="submit" class="btn btn-primary mt-4">Enviar</button>
+                    </div>
+                </form>
+                <p>Problemas neste exemplo:</p>
+                <ul>
+                    <li>Não indica quais campos são obrigatórios antes do envio</li>
+                    <li>Mensagem de erro não é associada ao campo por tecnologias assistivas</li>
+                    <li>Não há instruções claras sobre como corrigir o erro</li>
+                    <li>O foco não retorna ao campo com erro</li>
+                </ul>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Mensagens de erro acessíveis</h4>
+                <form id="good-error-form">
+                    <div class="form-group">
+                        <label for="good-error-input" class="form-required">Nome:</label>
+                        <input 
+                            type="text" 
+                            id="good-error-input" 
+                            name="name" 
+                            aria-required="true"
+                            aria-describedby="name-requirement good-error-message">
+                        <span id="name-requirement" class="form-hint">Este campo é obrigatório</span>
+                        <span id="good-error-message" class="form-error visually-hidden"></span>
+                        <button type="submit" class="btn btn-primary mt-4">Enviar</button>
+                    </div>
+                </form>
+                <p>Melhorias neste exemplo:</p>
+                <ul>
+                    <li>Indica claramente quais campos são obrigatórios antes do envio</li>
+                    <li>Associa mensagens de erro ao campo usando aria-describedby</li>
+                    <li>Fornece instruções claras sobre como corrigir o erro</li>
+                    <li>Retorna o foco ao campo com erro</li>
+                </ul>
+            </div>
+            
+            <div class="code-block">
+&lt;!-- Exemplo bom: Formulário com validação acessível --&gt;
+&lt;form id="form-exemplo"&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label for="nome" class="form-required"&gt;Nome:&lt;/label&gt;
+    &lt;input 
+      type="text" 
+      id="nome" 
+      name="nome" 
+      aria-required="true"
+      aria-describedby="nome-requisito nome-erro"&gt;
+    &lt;span id="nome-requisito" class="form-hint"&gt;Este campo é obrigatório&lt;/span&gt;
+    &lt;span id="nome-erro" class="form-error visually-hidden"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+// Ao validar:
+if (!campoValido) {
+  const erro = document.getElementById('nome-erro');
+  erro.textContent = 'Por favor, preencha seu nome completo.';
+  erro.classList.remove('visually-hidden');
+  
+  // Marca o campo como inválido para leitores de tela
+  campoInput.setAttribute('aria-invalid', 'true');
+  
+  // Retorna o foco para o campo com erro
+  campoInput.focus();
+}
+&lt;/script&gt;
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="checklist-title">
+    <h2 id="checklist-title">Checklist de Verificação</h2>
+    
+    <div class="card">
+        <h3 class="card-title">Verificações Importantes</h3>
+        <p>Use esta lista para verificar se seu conteúdo atende ao princípio "Compreensível":</p>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Critério</th>
+                        <th scope="col">Como Verificar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Idioma da página</td>
+                        <td>Verifique se o atributo <code>lang</code> está presente no elemento <code>html</code></td>
+                    </tr>
+                    <tr>
+                        <td>Navegação consistente</td>
+                        <td>Verifique se os menus de navegação estão na mesma ordem em todas as páginas</td>
+                    </tr>
+                    <tr>
+                        <td>Identificação consistente</td>
+                        <td>Elementos com a mesma função devem ser identificados consistentemente</td>
+                    </tr>
+                    <tr>
+                        <td>Ajuda contextual</td>
+                        <td>Forneça instruções para ajudar usuários a entenderem formulários complexos</td>
+                    </tr>
+                    <tr>
+                        <td>Prevenção de erros</td>
+                        <td>Implemente verificações, confirmações e opção de reversão em ações importantes</td>
+                    </tr>
+                    <tr>
+                        <td>Rótulos e instruções</td>
+                        <td>Todos os campos de formulário devem ter rótulos descritivos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="next-steps-title">
+    <h2 id="next-steps-title">Próximos Passos</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Ferramentas Úteis</h3>
+                <ul>
+                    <li><a href="https://hemingwayapp.com/" target="_blank" rel="noopener">Hemingway Editor</a> - Avalia a legibilidade do seu texto</li>
+                    <li><a href="https://www.w3.org/WAI/test-evaluate/" target="_blank" rel="noopener">Ferramentas de Avaliação de Acessibilidade</a> - Lista mantida pelo W3C</li>
+                    <li><a href="https://www.nngroup.com/articles/writing-for-lower-literacy-users/" target="_blank" rel="noopener">Escrevendo para Usuários com Baixa Alfabetização</a> - Artigo do Nielsen Norman Group</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Continue Aprendendo</h3>
+                <p>Explore os outros princípios WCAG para criar uma experiência web totalmente acessível:</p>
+                <a href="{{ url_for('robust') }}" class="btn btn-primary">Próximo: Princípio 4 - Robusto</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+
+{% block title %}Acessibilidade Digital - Contato{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="contact-title">
+    <h1 id="contact-title">Entre em Contato</h1>
+    <p>Preencha o formulário abaixo para enviar dúvidas, sugestões ou comentários sobre acessibilidade digital. Todos os campos marcados com asterisco (*) são obrigatórios.</p>
+</section>
+
+<section class="section" aria-labelledby="form-title">
+    <h2 id="form-title" class="visually-hidden">Formulário de Contato</h2>
+    
+    <div class="card">
+        <form action="{{ url_for('contact') }}" method="post" class="needs-validation" id="contact-form" novalidate>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name" class="form-required">Nome</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            class="form-control" 
+                            aria-required="true"
+                            aria-describedby="name-hint name-error"
+                            required>
+                        <span id="name-hint" class="form-hint">Digite seu nome completo</span>
+                        <span id="name-error" class="form-error visually-hidden"></span>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="email" class="form-required">E-mail</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-control" 
+                            aria-required="true"
+                            aria-describedby="email-hint email-error"
+                            required
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                        <span id="email-hint" class="form-hint">Ex: seu.email@exemplo.com</span>
+                        <span id="email-error" class="form-error visually-hidden"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Assunto</label>
+                <select id="subject" name="subject" class="form-control" aria-describedby="subject-hint">
+                    <option value="">Selecione um assunto</option>
+                    <option value="question">Dúvida sobre acessibilidade</option>
+                    <option value="suggestion">Sugestão de conteúdo</option>
+                    <option value="issue">Problema de acessibilidade no site</option>
+                    <option value="other">Outro assunto</option>
+                </select>
+                <span id="subject-hint" class="form-hint">Selecione a opção que melhor descreve seu contato</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="message" class="form-required">Mensagem</label>
+                <textarea 
+                    id="message" 
+                    name="message" 
+                    class="form-control" 
+                    rows="5" 
+                    aria-required="true"
+                    aria-describedby="message-hint message-error"
+                    required
+                    maxlength="1000"></textarea>
+                <span id="message-hint" class="form-hint">Descreva em detalhes sua mensagem (máximo 1000 caracteres)</span>
+                <span id="message-error" class="form-error visually-hidden"></span>
+            </div>
+            
+            <div class="form-group">
+                <fieldset>
+                    <legend>Preferência de contato</legend>
+                    <div class="flex gap-4">
+                        <div>
+                            <input type="radio" id="contact-email" name="contact_preference" value="email" checked>
+                            <label for="contact-email">E-mail</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="contact-phone" name="contact_preference" value="phone">
+                            <label for="contact-phone">Telefone</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            
+            <div class="form-group">
+                <div class="flex items-center gap-2">
+                    <input 
+                        type="checkbox" 
+                        id="newsletter" 
+                        name="newsletter" 
+                        value="yes"
+                        aria-describedby="newsletter-desc">
+                    <label for="newsletter">Desejo receber novidades sobre acessibilidade</label>
+                </div>
+                <span id="newsletter-desc" class="form-hint">Você poderá cancelar a inscrição a qualquer momento</span>
+            </div>
+            
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">Enviar mensagem</button>
+                <button type="reset" class="btn btn-secondary">Limpar formulário</button>
+            </div>
+            
+            <!-- Área para anúncios de validação do formulário para leitores de tela -->
+            <div id="contact-form-validation-live" class="sr-only" aria-live="assertive"></div>
+        </form>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="accessibility-features-title">
+    <h2 id="accessibility-features-title">Recursos de Acessibilidade deste Formulário</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Características de Acessibilidade</h3>
+                <ul>
+                    <li>Rótulos (labels) corretamente associados a cada campo</li>
+                    <li>Indicação clara dos campos obrigatórios</li>
+                    <li>Mensagens de erro específicas para cada campo</li>
+                    <li>Descrições adicionais para ajudar no preenchimento</li>
+                    <li>Campos agrupados logicamente com fieldset e legend</li>
+                    <li>Feedback de validação acessível para leitores de tela</li>
+                    <li>Navegação por teclado com ordem lógica</li>
+                    <li>Contraste adequado para textos e elementos</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <h3 class="card-title">Implementações ARIA</h3>
+                <ul>
+                    <li><code>aria-required</code> - Indica campos obrigatórios</li>
+                    <li><code>aria-describedby</code> - Conecta campos a suas descrições</li>
+                    <li><code>aria-invalid</code> - Aplicado dinamicamente para indicar erros</li>
+                    <li><code>aria-live</code> - Região para anunciar erros de validação</li>
+                </ul>
+                <p class="mt-4">Valide o formulário sem preencher campos obrigatórios ou com formato incorreto para experimentar o comportamento acessível de validação.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" aria-labelledby="contact-methods-title">
+    <h2 id="contact-methods-title">Outras Formas de Contato</h2>
+    
+    <div class="card">
+        <h3 class="card-title">Opções Alternativas de Comunicação</h3>
+        <p>Preferimos o contato através do formulário acima, mas também oferecemos as seguintes alternativas para garantir acessibilidade a todos os usuários:</p>
+        
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div style="padding: 15px; text-align: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <h4>E-mail</h4>
+                    <p><a href="mailto:exemplo@acessibilidadedigital.com">exemplo@acessibilidadedigital.com</a></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="padding: 15px; text-align: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <h4>Telefone</h4>
+                    <p><a href="tel:+5500000000000">+55 (00) 00000-0000</a></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="padding: 15px; text-align: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <h4>Atendimento</h4>
+                    <p>Segunda a Sexta, 9h às 18h</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

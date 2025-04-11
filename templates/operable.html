@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Acessibilidade Digital - Operável{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="operable-title">
+    <h1 id="operable-title">Princípio 2: Operável</h1>
+    <p>Os componentes da interface e a navegação devem ser operáveis por todos os usuários, independentemente de sua capacidade física ou da tecnologia utilizada.</p>
+    
+    <blockquote>
+        "Componentes de interface de usuário e navegação devem ser operáveis."
+        <footer>— WCAG 2.2</footer>
+    </blockquote>
+</section>
+
+<section class="section" aria-labelledby="guidelines-title">
+    <h2 id="guidelines-title">Diretrizes Principais</h2>
+    
+    <div class="card">
+        <h3 class="card-title">2.1 Acessível por Teclado</h3>
+        <p>Torne toda a funcionalidade disponível a partir de um teclado, sem exigir tempos específicos para pressionamentos de teclas.</p>
+        
+        <div class="demo-section" id="keyboard-trap-demo">
+            <span class="demo-title">Demonstração: Navegação por Teclado</span>
+            
+            <h4 id="keyboard-trap-heading">Armadilha de Teclado</h4>
+            
+            <div class="demo-bad">
+                <h4 class="demo-bad-title">Exemplo ruim: Armadilha de teclado</h4>
+                <p>Uma armadilha de teclado ocorre quando o usuário pode entrar em uma área da página usando o teclado, mas não consegue sair dela usando apenas o teclado.</p>
+                
+                <div id="bad-keyboard-trap" style="border: 1px solid #ddd; padding: 15px; background: #f9f9f9;">
+                    <p><strong>Experimente:</strong> Entre nesta "armadilha" usando a tecla Tab e tente sair dela (você não conseguirá sem usar o mouse).</p>
+                    
+                    <input type="text" id="trap-input-1" placeholder="Campo 1">
+                    <input type="text" id="trap-input-2" placeholder="Campo 2">
+                    <input type="text" id="trap-input-3" placeholder="Campo 3">
+                    
+                    <button id="escape-trap-button" class="btn btn-secondary mt-4">Clique para escapar (mas apenas com mouse)</button>
+                </div>
+                <p>Os usuários que navegam apenas por teclado ficariam presos nesta seção.</p>
+            </div>
+            
+            <div class="demo-good">
+                <h4 class="demo-good-title">Exemplo bom: Navegação por teclado adequada</h4>
+                <p>Todos os controles interativos devem ser acessíveis via teclado, e o usuário deve poder navegar para dentro e para fora de todas as áreas da página.</p>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; background: #f9f9f9;">
+                    <p><strong>Experimente:</strong> Esta seção permite navegação normal com Tab.</p>
+                    
+                    <input type="text" placeholder="Campo 1">
+                    <input type="text" placeholder="Campo 2">
+                    <input type="text" placeholder="Campo 3">
+                    
+                    <button class="btn btn-secondary mt-4">Botão acessível</button>
+                </div>
+                <p>Usuários podem navegar por todos os elementos usando o teclado sem ficar presos.</p>
+            </div>
+            
+            <div class="code-block">
+/* JavaScript que cria uma armadilha de teclado (prática ruim) */
+element.addEventListener('keydown', function(e) {
+  if (e.key === 'Tab') {
+    e.preventDefault(); // Impede a navegação normal com Tab
+    // Código para mover o foco entre elementos predefinidos...
+  }
+});
+
+/* Em vez disso, permita que o navegador gerencie o foco (boa prática) */
+// Não manipule eventos de Tab, exceto em casos específicos como widgets de diálogo modal,
+// onde você deve fornecer uma maneira óbvia de sair (ex: botão "Fechar" ou tecla ESC)
